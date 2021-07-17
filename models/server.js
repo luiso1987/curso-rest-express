@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors');
 
 const user_route = require('../routes/user');
+const auth_route = require('../routes/auth');
 const { dbConnection } = require('../database/config');
 
 class Server {
@@ -10,6 +11,7 @@ class Server {
         this.app = express();
         this.port = process.env.PORT;
         this.usersPath = '/api/users';
+        this.authPath = '/api/auth';
 
         // Conectar a base de datos
         this.conectarBD();
@@ -38,6 +40,7 @@ class Server {
 
     routes() {
         this.app.use(this.usersPath, user_route);
+        this.app.use(this.authPath, auth_route);
     }
 
     listen() {
